@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' />
+  <a href="css/style.css"></a>
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="css/open-iconic-bootstrap.min.css">
+  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+  <!-- Custom styles for this template -->
+  <link href="css/the-big-picture.css" rel="stylesheet">
+  <style type="text/css">
+   html,body,#app{
+    height: 100vh;
+    min-height: 400px
+  }
+  .major-height{
+    height: 80vh;
+  }
+  .bg-green{
+    background-color: green
+  }
+  .float-none{
+    float: none;
+  }
+  .float-left{
+    float: left;
+  }
+  .float-right{
+    float: right;
+  }
+  .input-area{
+    margin-top: 5px;
+    position: relative;
+    bottom: 0;
+  }
+  .messages-area{
+    margin-top: 5px;
+    height: 75%;
+    /*background-color: red;*/
+    overflow-y: scroll;
+    -webkit-box-shadow: 17px 38px 64px -2px rgba(0,0,0,0.38);
+    -moz-box-shadow: 17px 38px 64px -2px rgba(0,0,0,0.38);
+    box-shadow: 17px 38px 64px -2px rgba(0,0,0,0.38);
+    /*-webkit-border-radius: 40px;*/
+    /*-moz-border-radius: 40px;*/
+    /*border-radius: 40px;*/
+    border: 1px solid black;
+    padding: 40px;
+  }
+  .error_class{
+    border : 1px solid red;
+    background-color: #ffcccc!important;
+  }
+
+  button.btn.btn-success.btn-block.float-left {
+    background-color: #343a40;
+    border-color: #343a40!important;
+    margin: 5px 0 0 0;
+  }
+
+  .body-message{
+    clear: both;
+  }
+
+  .doguinho_fofinho{
+    width: 100%;
+    height: 300px;
+    position: absolute;
+    left: 0;
+    bottom: 50%;
+    background-image: url(images/dog1.gif);
+    background-repeat: no-repeat;
+    background-position: center center;
+    z-index: 999;
+    border-radius: 700px;
+    background-color: white;
+  }
+
+</style>
+</head>
+<body>
+
+
+
+  <!-- Navigation -->
+  <div id="app">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-bottom">
+      <div class="container">
+        <a class="navbar-brand" href="#"><h2>Foodbot</h2></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">Home
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Services</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Contact</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Page Content -->
+    <section class="">
+      <div class="container-fluid">
+        <div class="row">
+         <message-container class="col-lg-12 major-height"></message-container >
+         </div>
+       </div>
+     </div>
+   </div>
+ </section>
+</div>
+
+<!-- Bootstrap core JavaScript -->
+<script src="js/jquery/jquery.min.js"></script>
+<script src="js/bootstrap/js/bootstrap.bundle.min.js"></script>
+<template id="message-container">
+  <div>
+    <p>message-container</p>
+    <div class="messages-area col-lg-12" id="lista_mensagens">
+      <message 
+      v-bind:class="[message.to == 'r' ? [fright,alert_danger] : ['fleft',alert_success] ]" 
+      v-for="message in messages" 
+      v-bind:key="message.id_message" 
+      v-bind:text="message.message">
+    </div>
+  </message>
+  <message-insert v-on:manda-message="recebeMessage"></message-insert>
+</div>
+</template>
+
+
+
+
+<template id="message">
+  <div class="alert alert-success col-lg-6 body-message float-left ">
+    <strong><span class="glyphicon glyphicon-user"></span></strong> {{text}}
+  </div>
+</template>
+
+<template id="message-insert">
+<div class="input-area insert-message">
+    <div class="doguinho_fofinho hide" v-show="mostra_load">
+      <!-- <img src="images/food1.gif"> -->
+    </div>
+    <form class="form">
+      <div class="">
+        <div class="col-lg-12">
+          <input @keyup.enter.prevent="send" type="text" v-bind:class="[error ? class_error : '']" v-model="textoEntrada" class="form-control" id="pwd">
+        </div>
+        <div class="col-lg-12">
+          <button type="button" @click.prevent="send" class="btn btn-success btn-block float-left">Enviar</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</template>
+
+<!-- versão de desenvolvimento, inclui aviso úteis no console  -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script type="text/javascript" src="js/components/message-container.js"></script>
+<script type="text/javascript" src="js/components/message.js"></script>
+<script type="text/javascript" src="js/components/input-message.js"></script>
+<script type="text/javascript" src="js/app.js"></script>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.bundle.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</body>
+</html>
